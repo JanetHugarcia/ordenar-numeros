@@ -1,0 +1,59 @@
+*{
+	margin:0;
+	padding:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body{
+	margin: 15%;
+	font-size: 16px;
+}
+#numeral{
+	margin:0 auto;
+	text-align: center;			
+}
+#orden{
+	margin:5%;
+}
+.object{
+	position: relative;
+	display: inline;
+	font-size: 2em;
+	border:2px solid white;
+}
+/*dynamic class*/
+.bck-yellow{
+	background-color: yellow;
+}
+.border-black{
+	border: 2px solid black;
+	padding:5px;
+}
+.border-red {
+  animation-name: parpadeo;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+
+  -webkit-animation-name:parpadeo;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+}
+@-moz-keyframes  parpadeo {  
+  0% { border:2px solid red; }
+  50% { border:2px solid red; }
+  100% { opacity: 1.0; }
+}
+@-webkit-keyframes parpadeo {  
+  0% { border:2px solid red; }
+  50% { border:2px solid red; }
+  100% { opacity: 1.0; }
+}
+@keyframes parpadeo {  
+  0% { border:2px solid red; }
+  50% { border:2px solid red; }
+  100% { opacity: 1.0; }
+}
+
