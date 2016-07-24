@@ -1,66 +1,127 @@
-//Declarando variable
-	var width;
-	var mywidth;
-	var list =[];
-	var newList =[];
-	var myVar;
-//una vez recargada la página
-$(document).ready(function(){
-	var n = prompt("¿Cuántos número va a ingresar?");
-	var i=0;
-//introduciendo numeross
-	for(i;i<n;i++){
-		var obj = parseInt(prompt("Ingrese numero("+i+")"));
-	  $('#numeral').append("<div class='object' data-position='"+
-	  											i+"' id='"+obj+"' >"+obj+
-	  											"</div>");
-	  list.push(obj);
-	}
-	newList = list.unique();
-//---------
-//Parpadeo en cada object en cuanto a su numero de data-position
-	$('.object:first-child').addClass("border-red");//se le agrega propiedades al primer hijo de object
-	var c=1;
-	setInterval(function(){
-		$('.object:nth-child('+c+')').removeClass("border-red");
-		c=c+1;
-		$('.object:nth-child('+c+')').addClass("border-red");
+//**************************Declarando variables****************************
+var msg = "ingrese cantidad de números";
+var state,state2 = true;
+var c = 0;
+var list =[];
+//*********************
 
-
-	},4000);
-//--------------
-//-------------
-//Cada 4 segundo se va a recorrer la lista y se va mostrando el menor
-// y después se va eliminando
-
-	myVar=setInterval(function(){
-		var menor = newList[0];
-
-		if(newList.length>1){
-			for (e in newList) {
-				if(newList[e]<menor){
-					menor=newList[e];
-				}
-			}
-		}else{
-			myStopFunction();
+//**************************validando numeros y diferentes****************************
+do{
+	var n = parseInt(prompt(msg));
+	for(c;c<n;c++){
+		var obj = parseInt(prompt("ingrese numero"));
+		var nRepeat=list.indexOf(obj);
+		if( nRepeat < 0) list.push(obj) 
+		else {
+			alert("No repita numero");
+			break ; 
 		}
-		$('#'+menor).addClass('bck-yellow');
-		$('#'+menor).animate({left: '-=500'}, 1000);
-		$('#'+menor).animate({left: '-=500',top: '-=500'}, 1000);
-		// $('#'+menor).animate({top: '-=1000'}, 1000);
-
-		console.log(menor);
-		$('#orden').append('<div class="object border-black">'+menor+'</div>');//mostrando menor
-		newList.splice( $.inArray(menor,newList) ,1 );//eliminando
- 		},4000);
-
-
-});
-
-function myStopFunction() {
+		if(isNaN(obj)) break;
+	}
+	if(!isNaN(n) ) state = false;
+}while(state);
+//**************************imprimiendo numeros****************************
+for(e in list){
+	if(!isNaN(list[e])){
+		$('#numeral').append('<div class="object" id="'+ e +'">'+ list[e]+'</div>')
+	}else{
+		alert("JAJAJA a mi ud no me engaña\nIndicaciones:"+
+			"\n1. Use sólo números"+
+			"\n2.Primero cumpla la (1)");
+		$('#numeral').text("");
+	}
+}
+//**************************trabajando con valores int****************************
+function numberDiv(number){
+	var valueDiv = parseInt($('#'+number).text());
+	return valueDiv; 
+}
+function myStopFunction(myVar) {
     clearInterval(myVar);
 }
-Array.prototype.unique=function(a){
-  return function(){return this.filter(a)}}(function(a,b,c){return c.indexOf(a,b+1)<0
-});
+//**************************evaluando****************************
+var size = 0;
+	$('#'+size).addClass("border-red");
+var interval = setInterval(function(){
+	$('#'+size).removeClass("border-red");
+	$('#'+size).addClass("border-black");
+	var num0=numberDiv(size);
+
+	size++;
+	$('#'+size).addClass("border-red");
+	var num1 = numberDiv(size);
+
+	if(num1<num0){
+		var sizeOn = size;
+		// var sizeInt = size-1;
+		// console.log(num0 + " " +num1+" size: "+size + " ");
+		$('#'+sizeOn).animate({top: '-=70'}, 1000);
+		// $('#'+sizeInt).animate({left: '+=30'}, 2000);
+		myStopFunction(interval)
+		//******************moviendo divs anterioress************************
+		var runTotal=0;
+		var sizeDivMove;
+		var widthRed;
+		var numeroDivMove = 0;
+		var interval2 = setInterval(function(){
+			sizeOn--;
+			num=numberDiv(sizeOn);
+			if(num > num1){
+				widthRed = $('.border-red').outerWidth();
+				$('#'+sizeOn).animate({left: '+='+widthRed}, 1000);
+				sizeDivMove = $('#'+sizeOn).outerWidth();
+				runTotal+=sizeDivMove;
+				// console.log(runTotal);
+				numeroDivMove++;
+			}                                        
+			if(sizeOn <0){
+				// var runTotal = widthRed*numeroDivMove;
+				// console.log(runTotal);
+				
+				myStopFunction(interval2);
+				$('#'+size).animate({left: '-='+runTotal,top:'+=70'}, 1000);
+				$('#'+size).removeClass("border-red");
+				$('#'+size).addClass("border-black");
+				console.log(size);
+				size=size+1;
+				$('#'+size).addClass("border-red");
+
+			}
+		},1000);
+		//******************
+
+		// while(sizeOn>=0){
+		// 	sizeOn--;
+		// 	num=numberDiv(sizeOn);
+		// 	if(num > num1){
+		// 		$('#'+sizeOn).animate({left: '+=30'}, 1000);
+		// 	}
+
+		// }
+		//*******************
+	}
+	if(size==list.length) myStopFunction(interval); 
+},2000);
+
+
+// var size = 0;
+
+// 	$('#'+size).addClass("border-red");
+// var interval = setInterval(function(){
+// 	$('#'+size).removeClass("border-red");
+// 	size++;
+// 	$('#'+size).addClass("border-red");
+// 	if(size==list.length) myStopFunction(interval); 
+// },2000);
+
+
+
+
+
+
+ 
+
+
+
+
+
